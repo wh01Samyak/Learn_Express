@@ -22,16 +22,28 @@ Node.js is a javascript runtime which allows us to write backend programs in jav
 We can start a node server by typing `node file_name.js`.
 
 ### Some basic commands -
-1. First we need to create an express app object.
+First we need to create an Express app object.
+```
+var express = require('express');
+var app = express();
+```
+require('xxx.js'), where the .js extension can be omitted, returns whatever is exported by that xxx.js file. If that xxx.js file exports an object, require('xxx.js') returns an object; if a function is exported, require('xxx.js') returns a function; if a single string is exported, require('xxx.js') returns a string...
+
+If you check source code of file express.js, you will see that it exports a single function. So in `var express = require('express')`.
+
+The first express is assigned whatever is exported by module express, which in this case happens to be a single function.
+express is a function, not a reference to a module. Hence on second row you just invoke that function: `var app = express()`.
+
+This Express app object has many functions. We'll cove them in the following points -
+1. **app.listen(port)** - This tells our server to listen to a specific port. By default node server listens on port 3000.
+2. **app.get(path, handler)** - In express, a route takes the following structure. In place of get we can have any http method, like get, put, post, delete. Path is a relative on the server, it can be a string or even a regular expression. Handler is a function that Express calls when the route is matched. Handlers take the form function(req, res) {...}, where req is the request object, and res is the response object. For example, the handler
    ```
-   var express = require('express');
-   var app = express();
+   function(req, res) {
+     res.send('Response String');
+   }
    ```
-   require('xxx.js'), where the .js extension can be omitted, returns whatever is exported by that xxx.js file. If that xxx.js file exports an object, require('xxx.js') returns an object; if a function is exported, require('xxx.js') returns a function; if a single string is exported, require('xxx.js') returns a string...
-   If you check source code of file express.js, you will see that it exports a single function. So in `var express = require('express')`.
-   The first express is assigned whatever is exported by module express, which in this case happens to be a single function.
-   express is a function, not a reference to a module. Hence on second row you just invoke that function: `var app = express()`.
-2. 
+   will serve the string 'Response String'.
+3. 
 
 ## Sources -
 1. FreeCodeCamp
