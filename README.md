@@ -29,12 +29,13 @@ var app = express();
 ```
 require('xxx.js'), where the .js extension can be omitted, returns whatever is exported by that xxx.js file. If that xxx.js file exports an object, require('xxx.js') returns an object; if a function is exported, require('xxx.js') returns a function; if a single string is exported, require('xxx.js') returns a string...
 
-If you check source code of file express.js, you will see that it exports a single function. So in `var express = require('express')`.
+If we check the source code of file express.js, we will see that it exports a single function. So in `var express = require('express')`.
 
 The first express is assigned whatever is exported by module express, which in this case happens to be a single function.
-express is a function, not a reference to a module. Hence on second row you just invoke that function: `var app = express()`.
+express is a function, not a reference to a module. Hence on second row we just invoke that function: `var app = express()`.
 
 This Express app object has many functions. We'll cove them in the following points -
+
 1. **app.listen(port)** - This tells our server to listen to a specific port. By default node server listens on port 3000.
 
 2. **app.get(path, handler)** - In express, a route takes the following structure. In place of get we can have any http method, like get, put, post, delete. Path is a relative on the server, it can be a string or even a regular expression. Handler is a function that Express calls when the route is matched. Handlers take the form function(req, res) {...}, where req is the request object, and res is the response object. For example, the handler
@@ -69,9 +70,6 @@ This Express app object has many functions. We'll cove them in the following poi
       });
       ```
       This approach is useful to split the server operations into smaller units. That leads to a better app structure, and the possibility to reuse code in different places. This approach can also be used to perform some validation on the data. At each point of the middleware stack you can block the execution of the current chain and pass control to functions specifically designed to handle errors. Or you can pass control to the next matching route, to handle special cases.
-
-
-
 
 5. **res.json({key: data})** - We can use Express to create REST APIs and send json using this command. We can pass any object as an argument. This method closes the request-response loop, returning the data. Behind the scenes, it converts a valid JavaScript object into a string, then sets the appropriate headers to tell our browser that we are serving JSON, and sends the data back. A valid object has the usual structure {key: data}. Data can be a number, a string, a nested object or an array. Data can also be a variable or the result of a function call, in which case it will be evaluated before being converted into a string.
 
