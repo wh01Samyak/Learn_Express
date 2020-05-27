@@ -88,6 +88,13 @@ This Express app object has many functions. We'll cove them in the following poi
    actual_request_URL: '/library?userId=546&bookId=6754'
    req.query: {userId: '546', bookId: '6754'}
    ```
+   For POST requests, the data doesn’t appear in the URL, it is hidden in the request body. This is a part of the HTML request, also called payload. Since HTML is text-based, even if we don’t see the data, it doesn’t mean that it is secret. For this we need to install the `body-parser` package. `var bodyParser = require('body-parser');`. This package allows us to use a series of middleware, which can decode data in different formats.The middleware to handle urlencoded data is returned by `bodyParser.urlencoded({extended: false})`.Extended=false is a configuration option that tells the parser to use the classic encoding. When using it, values can be only strings or arrays. The extended version allows more data flexibility, but it is outmatched by JSON. After this, we will find the parameters in the object `req.body`.
+   ```
+   route: POST '/library'
+   urlencoded_body: userId=546&bookId=6754
+   req.body: {userId: '546', bookId: '6754'}
+   ```
+   
 7. **app.route(path).get(handler).post(handler)** - This syntax allows us to chain different verb handlers on the same path route. 
 
 ## Node basics -
